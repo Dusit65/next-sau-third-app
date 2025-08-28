@@ -14,20 +14,49 @@ export default function App() {
   const [monthlyPayment, setMonthlyPayment] = useState('0.00');
 
   const calculateInstallment = () => {
-    const price = parseFloat(carPrice);
-    const rate = parseFloat(installmentRate) / 100;
-    const downPayment = price * (parseFloat(downPercent) / 100);
-    const loanAmount = price - downPayment;
-    const payments = parseInt(numPayments, 10);
+  // ถ้าข้อมูลยังไม่ครบ ให้ return เงียบ ๆ ไม่ต้อง alert
+  if (
+    name === '' ||
+    carPrice === '' || parseFloat(carPrice) <= 0 ||
+    installmentRate === '' || parseFloat(installmentRate) <= 0 ||
+    downPercent === '' ||
+    numPayments === ''
+  ) {
+    setMonthlyPayment('0.00');
+    return;
+  }
 
-    if (loanAmount > 0 && rate > 0) {
-      const monthlyRate = rate / 12;
-      const calculatedPayment = (loanAmount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -payments));
-      setMonthlyPayment(calculatedPayment.toFixed(2));
-    } else {
-      setMonthlyPayment('0.00');
-    }
-  };
+  const price = parseFloat(carPrice);
+  const rate = parseFloat(installmentRate) / 100;
+  const downPayment = price * (parseFloat(downPercent) / 100);
+  const loanAmount = price - downPayment;
+  const payments = parseInt(numPayments, 10);
+
+  if (loanAmount > 0 && rate > 0) {
+    const monthlyRate = rate / 12;
+    const calculatedPayment = (loanAmount * monthlyRate) /
+      (1 - Math.pow(1 + monthlyRate, -payments));
+    setMonthlyPayment(calculatedPayment.toFixed(2));
+  } else {
+    setMonthlyPayment('0.00');
+  }
+};
+const handleManualCalculate = () => {
+  if (name === '') {
+    alert("กรุณาใส่ชื่อให้ถูกต้อง");
+    return;
+  }
+  if (carPrice === '' || parseFloat(carPrice) <= 0) {
+    alert("กรุณาใส่ราคารถให้มากกว่า 0");
+    return;
+  }
+  if (installmentRate === '' || parseFloat(installmentRate) <= 0) {
+    alert("กรุณาใส่อัตราดอกเบี้ยให้มากกว่า 0");
+    return;
+  }
+  calculateInstallment();
+};
+
 
   const handleClear = () => {
     setName('');
@@ -40,7 +69,6 @@ export default function App() {
   
   // Use useEffect to automatically recalculate when inputs change
   useEffect(() => {
-    calculateInstallment();
   }, [carPrice, installmentRate, downPercent, numPayments]);
 
   return (
@@ -186,7 +214,7 @@ export default function App() {
         <div className="space-y-3">
           <button
             className="w-full bg-green-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 dark:focus:ring-offset-gray-800 transition-colors duration-300"
-            onClick={calculateInstallment}
+            onClick={handleManualCalculate}
           >
             คำนวณ
           </button>

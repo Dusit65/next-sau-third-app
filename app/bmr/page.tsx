@@ -13,27 +13,39 @@ export default function App() {
 
   // Function to handle the calculation
   const calculateBmr = () => {
-    const parsedWeight = parseFloat(weight);
-    const parsedHeight = parseFloat(height);
-    const parsedAge = parseInt(age, 10);
-
-    if (parsedWeight > 0 && parsedHeight > 0 && parsedAge > 0) {
+    
+      if (weight === "" || parseFloat(weight) <= 0) {
+        alert("กรุณาใส่น้ำหนักให้มากกว่า 0");
+        return;
+      }
+      if (height === "" || parseFloat(height) <= 0) {
+        alert("กรุณาใส่ส่วนสูงให้มากกว่า 0");
+        return;
+      }
+      if (age === "" || parseInt(age, 10) <= 0) {
+        alert("กรุณาใส่อายุให้มากกว่า 0");
+        return;
+      }
       let calculatedBmr = 0;
+      const parsedWeight = parseFloat(weight);
+      const parsedHeight = parseFloat(height);
+      const parsedAge = parseInt(age, 10);
+
+      if (parsedWeight <= 0 || parsedHeight <= 0 || parsedAge <= 0) {
+        alert("กรุณาใส่ข้อมูลให้ถูกต้อง");
+        return;
+      }
       if (gender === "male") {
         // BMR for men: (10 × weight in kg) + (6.25 × height in cm) - (5 × age in years) + 5
         calculatedBmr =
-          10 * parsedWeight + 6.25 * parsedHeight - 5 * parsedAge + 5;
+          (10 * parsedWeight) + (6.25 * parsedHeight) - (5 * parsedAge) + 5;
       } else {
         // BMR for women: (10 × weight in kg) + (6.25 × height in cm) - (5 × age in years) - 161
         calculatedBmr =
-          10 * parsedWeight + 6.25 * parsedHeight - 5 * parsedAge - 161;
+          (10 * parsedWeight) + (6.25 * parsedHeight) - (5 * parsedAge) - 161;
       }
       setBmr(calculatedBmr.toFixed(2));
-    } else {
-      setBmr("0.00");
-    }
   };
-
   const handleClear = () => {
     setWeight("");
     setHeight("");

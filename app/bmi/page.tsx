@@ -1,27 +1,25 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import Image from "next/image";
 import bmiImg from "./../images/bmi.png";
 
 export default function App() {
-  const [weight, setWeight] = useState('');
-  const [height, setHeight] = useState('');
-  const [bmi, setBmi] = useState('0.00');
+  const [weight, setWeight] = useState("");
+  const [height, setHeight] = useState("");
+  const [bmi, setBmi] = useState("0.00");
 
   const handleCalBmi = () => {
     // Validate inputs
-    if (weight === '' || parseFloat(weight) <= 0) {
+    if (weight === "" || parseFloat(weight) <= 0) {
       alert("กรุณาใส่น้ำหนักให้มากกว่า 0");
       return;
     }
-    if (height === '' || parseFloat(height) <= 0) {
+    if (height === "" || parseFloat(height) <= 0) {
       alert("กรุณาใส่ส่วนสูงให้มากกว่า 0");
       return;
     }
-
     const parsedWeight = parseFloat(weight);
     const parsedHeight = parseFloat(height);
-
     if (parsedWeight > 0 && parsedHeight > 0) {
       // BMI formula: weight (kg) / [height (m)]²
       // Convert height from cm to meters
@@ -32,11 +30,10 @@ export default function App() {
       setBmi("0.00");
     }
   };
-
   const handleClear = () => {
-    setWeight('');
-    setHeight('');
-    setBmi('0.00');
+    setWeight("");
+    setHeight("");
+    setBmi("0.00");
   };
 
   return (
@@ -47,7 +44,6 @@ export default function App() {
             src={bmiImg}
             alt="BMI Icon"
             className="h-20 w-20 text-white items-center"
-           
           />
           <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
             Money Share Calculator
@@ -59,7 +55,12 @@ export default function App() {
 
         <div className="space-y-4">
           <div>
-            <label htmlFor="weight" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">ป้อนน้ำหนัก(กิโลกรัม)</label>
+            <label
+              htmlFor="weight"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+            >
+              ป้อนน้ำหนัก(กิโลกรัม)
+            </label>
             <input
               type="number"
               id="weight"
@@ -70,9 +71,14 @@ export default function App() {
               onChange={(e) => setWeight(e.target.value)}
             />
           </div>
-          
+
           <div>
-            <label htmlFor="height" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">ป้อนส่วนสูง(เซนติเมตร)</label>
+            <label
+              htmlFor="height"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+            >
+              ป้อนส่วนสูง(เซนติเมตร)
+            </label>
             <input
               type="number"
               id="height"
@@ -99,16 +105,14 @@ export default function App() {
             ล้างข้อมูล
           </button>
         </div>
-        
+
         <div className="text-center pt-4 border-t border-gray-200 dark:border-gray-700">
           <p className="text-lg text-gray-600 dark:text-gray-300">
             ค่า BMI ของคุณคือ
             <span className="font-bold text-2xl text-green-600 dark:text-green-400 ml-2">
               {bmi}
             </span>
-            <span className="ml-1">
-              kg/m²
-            </span>
+            <span className="ml-1">kg/m²</span>
           </p>
         </div>
       </div>

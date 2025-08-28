@@ -4,31 +4,30 @@ import Image from "next/image";
 import moneyshare from "./../images/moneyshare.png";
 
 export default function Page() {
-
-  const [money, setMoney] = useState('');
-  const [person, setPerson] = useState('');
-  const [moneyShare, setMoneyShare] = useState('0.00');
+  const [money, setMoney] = useState("");
+  const [person, setPerson] = useState("");
+  const [moneyShare, setMoneyShare] = useState("0.00");
 
   //Func Calculate
   const handleCalClick = () => {
     //validate
-    if(money === '' || money <= "0" ) {
-      alert('กรุณาป้อนจำนวนเงินให้มากกว่า 0');
+    if (money === "" || money <= "0") {
+      alert("กรุณาป้อนจำนวนเงินให้มากกว่า 0");
       return;
     }
-    if(person === '' || person <= "0") {
-      alert('กรุณาป้อนจำนวนคนให้มากกว่า 0');
+    if (person === "" || person <= "0") {
+      alert("กรุณาป้อนจำนวนคนให้มากกว่า 0");
       return;
     }
     const result = parseFloat(money) / parseInt(person);
     setMoneyShare(result.toFixed(2));
-  }
-  //Func Clear data 
+  };
+  //Func Clear data
   const handleClearClick = () => {
-    setMoney('');
-    setPerson('');
-    setMoneyShare('0.00');
-  }
+    setMoney("");
+    setPerson("");
+    setMoneyShare("0.00");
+  };
 
   return (
     <div className="bg-gray-100 dark:bg-gray-900 flex flex-col items-center justify-center min-h-screen p-4">
@@ -84,12 +83,16 @@ export default function Page() {
         </div>
 
         <div className="space-y-3">
-          <button onClick={handleCalClick}
-          className="w-full bg-green-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 dark:focus:ring-offset-gray-800 transition-colors duration-300">
+          <button
+            onClick={handleCalClick}
+            className="w-full bg-green-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 dark:focus:ring-offset-gray-800 transition-colors duration-300"
+          >
             คำนวณ
           </button>
-          <button onClick={handleClearClick} 
-          className="w-full bg-gray-200 text-gray-700 font-bold py-3 px-4 rounded-lg hover:bg-gray-300 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 dark:focus:ring-offset-gray-800 transition-colors duration-300">
+          <button
+            onClick={handleClearClick}
+            className="w-full bg-gray-200 text-gray-700 font-bold py-3 px-4 rounded-lg hover:bg-gray-300 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 dark:focus:ring-offset-gray-800 transition-colors duration-300"
+          >
             ล้างข้อมูล
           </button>
         </div>
